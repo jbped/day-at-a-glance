@@ -1,4 +1,3 @@
-var activities = [];
 var currentTimeObj = moment();
 var hourId = 8;
 
@@ -28,7 +27,7 @@ $.each($(".row"), function(){
 
 $(".saveBtn").on("click", function(event) {
     event.preventDefault();
-    var siblingActivity = $(this).sibling("#hour-task")
+    var siblingActivity = $(this).siblings("#hour-task")
     var sibActStr = siblingActivity.val().trim();
     var sibActHrId = siblingActivity.attr("hour-id")
 
@@ -51,14 +50,16 @@ var loadActivities = function() {
         activities = [];
     }
 
-    $.each(activities, function(list, string){
-        string.forEach(function(activity) {
-            
-        })
-    })
+    $.each(activities, function(index, value) {
+        var hour = value.time;
+        var activity = value.activity;
+        console.log("index", index, "value", value.time)
+    //     var hourMatch = $(`.hour:contains(${activities.time.val()})`)
+    // })
+
+    });
 }
-
-
+loadActivities();
 
 
 
@@ -74,4 +75,3 @@ var loadActivities = function() {
 //     console.log("hello")
 // }
 // setInterval(topOfHour(), 1000);
-
