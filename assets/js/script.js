@@ -53,10 +53,10 @@ var loadActivities = function() {
     $.each(activities, function(index, value) {
         var hour = value.time;
         var activity = value.activity;
-        console.log("index", index, "value", value.time)
-    //     var hourMatch = $(`.hour:contains(${activities.time.val()})`)
-    // })
-
+        console.log("index", index, "value", value.time, "activity", activity)
+        var hourMatch = $(`.hour:contains(${hour})`).siblings("#hour-task");
+        hourMatch.text(activity);
+        console.log(hourMatch)
     });
 }
 loadActivities();
