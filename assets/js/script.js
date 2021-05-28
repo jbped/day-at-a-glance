@@ -77,12 +77,12 @@ setInterval(function(){
         // console.log(hourId)
         var hourMomObj = moment(hourId, "H");
         // console.log(hourMomObj)   
-        var hourDiff = hourMomObj.diff(moment(), "hours")
+        var hourDiff = hourMomObj.diff(moment(), "hours", true)
         // console.log(hourDiff)
     
         if (hourDiff < 0) {
             $(this).addClass("past");
-        } else if (hourDiff === 0) {
+        } else if (hourDiff > 0 && hourDiff < 1) {
             $(this).addClass("present");
             
         } else if (hourDiff > 0) {
