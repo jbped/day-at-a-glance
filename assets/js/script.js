@@ -19,6 +19,7 @@ $(".saveBtn").on("click", function(event) {
     var siblingActivity = $(this).siblings("#hour-task")
     var sibActStr = siblingActivity.val().trim();
     var sibActHrId = siblingActivity.attr("hour-id")
+    console.log(sibActHrId);
 
 // Create an object with the time (hour id) and activity (entered value) add it to the activities object
     activities[sibActHrId] = {
@@ -46,20 +47,21 @@ var loadActivities = function() {
             10: {},
             11: {},
             12: {},
-            1: {},
-            2: {},
-            3: {},
-            4: {},
-            5: {}
+            13: {},
+            14: {},
+            15: {},
+            16: {},
+            17: {}
         };
     }
 
     // Get the hour id, get the activity value, match hourid with the textarea that has the same id and add text to textarea
     $.each(activities, function(index, value) {
         var hour = value.time;
+        console.log(hour)
         var activity = value.activity;
         // console.log("index", index, "value", value.time, "activity", activity)
-        var hourMatch = $(`.hour:contains(${hour})`).siblings("#hour-task");
+        var hourMatch = $(`.hour[hour-id=${hour}]`).siblings("#hour-task");
         hourMatch.text(activity);
         // console.log(hourMatch)
     });
@@ -71,21 +73,24 @@ loadActivities();
 // set interval checks every sec for the displayed current time, generate current time, and update classes for past, current, and future.
 setInterval(function(){
     $("#currentDay").text(moment().format("lll")); 
+    
+    var hourMomObj = parseInt(moment().format("H"));
+    // console.log(hourMomObj) 
 
     $.each($(".hour-task"), function() {
-        var hourId = $(this).attr("hour-id");
+        var hourId = parseInt($(this).attr("hour-id"));
         // console.log(hourId)
-        var hourMomObj = moment(hourId, "H");
-        // console.log(hourMomObj)   
-        var hourDiff = hourMomObj.diff(moment(), "hours", true)
+
+  
+        // var hourDiff = hourMomObj.diff(moment(), "hours", true)
         // console.log(hourDiff)
     
-        if (hourDiff < 0) {
+        if (hourMomObj > hourId) {
             $(this).addClass("past");
-        } else if (hourDiff > 0 && hourDiff < 1) {
+        } else if (hourId === hourMomObj) {
             $(this).addClass("present");
             
-        } else if (hourDiff > 0) {
+        } else if (hourMomObj < hourId) {
             $(this).addClass("future");
         }
     });
